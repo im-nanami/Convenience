@@ -1,0 +1,45 @@
+﻿@model Convenience.Models.ViewModels.Chumon.ChumonKeysViewModel
+@{
+
+}
+<h2>@(ViewData["Title"] ?? "商品注文")</h2>
+<h4>キー入力</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="KeyInput" id="form1">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="ShiireSakiId" class="control-label"></label>
+                <select asp-for="ShiireSakiId" asp-items="@Model.ShiireSakiList" class="form-control">
+                    <option value="">-- 選択してください --</option>
+                </select>
+            </div>
+            <span asp-validation-for="ShiireSakiId" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="ChumonDate" class="control-label"></label>
+                <input asp-for="ChumonDate" type="date" class="form-control" max="9999-12-31" value="@Model.ChumonDate.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="ChumonDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="検索" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/sites.js"></script>
+    <script>
+        $(document).ready(function () {
+            RendaSolution();
+            FirstFocus('@ViewBag.FocusPosition');
+            ResetForm("form1");
+        });
+    </script>
+}
